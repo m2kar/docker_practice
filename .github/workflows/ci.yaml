@@ -23,6 +23,23 @@ jobs:
           npm i
           npm run vuepress:build
           echo "vuepress.docker-practice.com" > .vuepress/dist/CNAME
+
+          cp -r _images .vuepress/dist
+          cp -r advanced_network/_images .vuepress/dist/advanced_network
+          cp -r appendix/_images .vuepress/dist/appendix
+          cp -r cases/ci/drone/_images .vuepress/dist/cases/ci/drone
+          cp -r cases/os/_images .vuepress/dist/cases/os
+          cp -r cloud/_images .vuepress/dist/cloud
+          cp -r data_management/_images .vuepress/dist/data_management
+          cp -r etcd/_images .vuepress/dist/etcd
+          cp -r image/_images .vuepress/dist/image
+          cp -r install/_images .vuepress/dist/install
+          cp -r introduction/_images .vuepress/dist/introduction
+          cp -r kubernetes/_images .vuepress/dist/kubernetes
+          cp -r mesos/_images .vuepress/dist/mesos
+          cp -r underly/_images .vuepress/dist/underly
+
+          echo "include: [_images]" > .vuepress/dist/_config
       - name: Upload Vuepress dist
         uses: docker://pcit/pages
         if: github.repository == 'docker-practice/docker_practice'
@@ -30,7 +47,7 @@ jobs:
           PCIT_EMAIL: khs1994@khs1994.com
           PCIT_GIT_TOKEN: ${{ secrets.PCIT_GIT_TOKEN }}
           PCIT_GIT_URL: github.com/docker-practice/vuepress
-          PCIT_KEEP_HISTORY: "1"
+          PCIT_KEEP_HISTORY: "true"
           PCIT_LOCAL_DIR: .vuepress/dist
           PCIT_MESSAGE: Sync from yeasy/docker_practice@${{github.sha}} by PCIT
           PCIT_TARGET_BRANCH: master
@@ -44,9 +61,33 @@ jobs:
         env:
           PCIT_EMAIL: khs1994@khs1994.com
           PCIT_GIT_TOKEN: ${{ secrets.CODING_GIT_TOKEN }}
-          PCIT_GIT_URL: git.dev.tencent.com/khs1994/docker_practice
-          PCIT_KEEP_HISTORY: "1"
+          PCIT_GIT_URL: e.coding.net/dpsigs/docker_practice
+          PCIT_KEEP_HISTORY: "true"
           PCIT_LOCAL_DIR: .vuepress/dist
           PCIT_MESSAGE: Sync from yeasy/docker_practice@${{github.sha}} by PCIT
           PCIT_TARGET_BRANCH: master
-          PCIT_USERNAME: khs1994
+          PCIT_USERNAME: ptt0xjqzbke3
+      - name: Build vuepress docker image
+        if: github.repository == 'docker-practice/docker_practice'
+        run: |
+          sudo rm -rf .vuepress/dist/.git
+
+          echo "FROM nginx:alpine" >> Dockerfile
+          echo "COPY .vuepress/dist /usr/share/nginx/html" >> Dockerfile
+          echo "COPY .docker/docker-entrypoint.sh /" >> Dockerfile
+          echo "CMD [\"sh\", \"/docker-entrypoint.sh\"]" >> Dockerfile
+
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+          VCS_REF=`git rev-parse --short HEAD`
+
+          docker build -t dockerpracticesig/docker_practice:vuepress \
+          --label org.opencontainers.image.revision=$VCS_REF \
+          --label org.opencontainers.image.source="https://github.com/yeasy/docker_practice" \
+          --label maintainer="https://github.com/docker-practice" \
+          .
+
+          docker push dockerpracticesig/docker_practice:vuepress
+        env:
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}

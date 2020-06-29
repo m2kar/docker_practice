@@ -104,7 +104,8 @@ REPOSITORY                         TAG                 IMAGE ID            CREAT
 ```json
 {
   "registry-mirror": [
-    "https://dockerhub.azk8s.cn"
+    "https://hub-mirror.c.163.com",
+    "https://mirror.baidubce.com"
   ],
   "insecure-registries": [
     "192.168.199.100:5000"

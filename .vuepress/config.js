@@ -109,8 +109,10 @@ module.exports = {
           collapsable: false,
           children: [
             "setup/",
-            "setup/docker",
+            "setup/kubeadm",
             "setup/docker-desktop",
+            "setup/systemd",
+            "setup/dashboard",
           ]
         },
         {
@@ -130,6 +132,7 @@ module.exports = {
         'django',
         'rails',
         'wordpress',
+        'lnmp',
       ],
       '/install/': [
         'ubuntu',
@@ -137,6 +140,7 @@ module.exports = {
         'fedora',
         'centos',
         'raspberry-pi',
+        'offline',
         'mac',
         'windows',
         'mirror',
@@ -172,8 +176,8 @@ module.exports = {
           title: "在 IDE 中使用 Docker",
           collapsable: false,
           children: [
-            '/IDE/',
-            '/IDE/vsCode',
+            '/ide/',
+            '/ide/vsCode',
           ],
         },
       ],
@@ -346,7 +350,7 @@ module.exports = {
           children: [
             'coreos/',
             'coreos/intro',
-            'coreos/intro_tools',
+            'coreos/install',
           ],
         },
         {
@@ -357,6 +361,7 @@ module.exports = {
             'opensource/linuxkit',
           ],
         },
+        'podman/',
         'appendix/faq/',
         {
           title: "热门镜像介绍",
@@ -372,6 +377,7 @@ module.exports = {
             'appendix/repo/wordpress',
             'appendix/repo/mongodb',
             'appendix/repo/redis',
+            'appendix/repo/minio',
           ],
         },
         {
@@ -386,37 +392,6 @@ module.exports = {
         'appendix/best_practices',
         'appendix/debug',
         'appendix/resources',
-        'archive/',
-        {
-          title: "Docker Machine",
-          collapsable: false,
-          children: [
-            'machine/',
-            'machine/install',
-            'machine/usage',
-          ],
-        },
-        {
-          title: 'Mesos',
-          collapsable: false,
-          children: [
-            'mesos/',
-            'mesos/intro',
-            'mesos/installation',
-            'mesos/architecture',
-            'mesos/configuration',
-            'mesos/monitor',
-            'mesos/framework',
-            'mesos/summary',
-          ]
-        },
-        {
-          title: 'Docker Swarm',
-          collapsable: false,
-          children: [
-            "swarm/"
-          ]
-        }
       ],
     },
   }

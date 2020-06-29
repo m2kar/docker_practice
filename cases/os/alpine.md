@@ -2,7 +2,7 @@
 
 ## 简介
 
-![Apline Linux 操作系统](_images/alpinelinux-logo.png)
+![Alpine Linux 操作系统](_images/alpinelinux-logo.png)
 
 `Alpine` 操作系统是一个面向安全的轻型 `Linux` 发行版。它不同于通常 `Linux` 发行版，`Alpine` 采用了 `musl libc` 和 `busybox` 以减小系统的体积和运行时资源消耗，但功能上比 `busybox` 又完善的多，因此得到开源社区越来越多的青睐。在保持瘦身的同时，`Alpine` 还提供了自己的包管理工具 `apk`，可以通过 `https://pkgs.alpinelinux.org/packages` 网站上查询包信息，也可以直接通过 `apk` 命令直接查询和安装各种软件。
 
@@ -50,8 +50,15 @@ $ apk add --no-cache <package>
 `Alpine` 中软件安装包的名字可能会与其他发行版有所不同，可以在 `https://pkgs.alpinelinux.org/packages` 网站搜索并确定安装包名称。如果需要的安装包不在主索引内，但是在测试或社区索引中。那么可以按照以下方法使用这些安装包。
 
 ```bash
-$ echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+$ echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 $ apk --update add --no-cache <package>
+```
+
+由于在国内访问 `apk` 仓库较缓慢，建议在使用 `apk` 之前先替换仓库地址为国内镜像。
+
+```docker
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories \
+      && apk add --no-cache <package>
 ```
 
 ## 相关资源

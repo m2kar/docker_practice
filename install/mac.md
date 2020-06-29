@@ -2,13 +2,13 @@
 
 ## 系统要求
 
-[Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/) 要求系统最低为 macOS Sierra 10.12。
+[Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/) 要求系统最低为 macOS Catalina 10.13。
 
 ## 安装
 
 ### 使用 Homebrew 安装
 
-[Homebrew](https://brew.sh/) 的 [Cask](https://caskroom.github.io/) 已经支持 Docker Desktop for Mac，因此可以很方便的使用 Homebrew Cask 来进行安装：
+[Homebrew](https://brew.sh/) 的 [Cask](https://github.com/Homebrew/homebrew-cask) 已经支持 Docker Desktop for Mac，因此可以很方便的使用 Homebrew Cask 来进行安装：
 
 ```bash
 $ brew cask install docker
@@ -18,7 +18,7 @@ $ brew cask install docker
 
 如果需要手动下载，请点击以下链接下载 [Stable](https://download.docker.com/mac/stable/Docker.dmg) 或 [Edge](https://download.docker.com/mac/edge/Docker.dmg) 版本的 Docker Desktop for Mac。
 
-如同 macOS 其它软件一样，安装也非常简单，双击下载的 `.dmg` 文件，然后将那只叫 [Moby](https://blog.docker.com/2013/10/call-me-moby-dock/) 的鲸鱼图标拖拽到 `Application` 文件夹即可（其间需要输入用户密码）。
+如同 macOS 其它软件一样，安装也非常简单，双击下载的 `.dmg` 文件，然后将那只叫 [Moby](https://www.docker.com/blog/call-me-moby-dock/) 的鲸鱼图标拖拽到 `Application` 文件夹即可（其间需要输入用户密码）。
 
 ![](_images/install-mac-dmg.png)
 
@@ -44,9 +44,9 @@ $ brew cask install docker
 
 ```bash
 $ docker --version
-Docker version 19.03.1, build 74b1e89
+Docker version 19.03.8, build afacb8b
 $ docker-compose --version
-docker-compose version 1.24.1, build 4667896b
+docker-compose version 1.25.5, build 8a1c60f6
 $ docker-machine --version
 docker-machine version 0.16.1, build cce350d7
 ```
